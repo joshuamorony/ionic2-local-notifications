@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Notifications
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+	<ion-list no-lines>
+
+		<ion-item>
+		  <ion-label>Notify me at: </ion-label>
+		  <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="notifyTime" (ionChange)="timeChange($event)"></ion-datetime>
+		</ion-item>
+
+		<ion-item>
+			<ion-label>on the following days:</ion-label>
+		</ion-item>
+
+		<ion-item *ngFor="let day of days">
+			<ion-label>{{day.title}}</ion-label>
+			<ion-checkbox [(ngModel)]="day.checked" color="primary"></ion-checkbox>
+		</ion-item>
+
+	</ion-list>
+
+</ion-content>
+
+<ion-footer>
+
+	<button (click)="addNotifications()" ion-button color="primary" full>Schedule</button>
+	<button (click)="cancelAll()" ion-button color="danger" full>Leave me alone!</button>
+
+</ion-footer>

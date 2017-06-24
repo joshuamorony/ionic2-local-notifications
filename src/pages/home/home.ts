@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, Platform, AlertController } from 'ionic-angular';
-import { LocalNotifications } from 'ionic-native';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 import * as moment from 'moment';
 
 @Component({
@@ -15,7 +15,7 @@ export class HomePage {
 	chosenHours: number;
 	chosenMinutes: number;
 
-	constructor(public navCtrl: NavController, public platform: Platform, public alertCtrl: AlertController) {
+	constructor(public navCtrl: NavController, public platform: Platform, public alertCtrl: AlertController, public localNotifications: LocalNotifications) {
 
 		this.notifyTime = moment(new Date()).format();
 
@@ -82,10 +82,10 @@ export class HomePage {
 		if(this.platform.is('cordova')){
 
 			// Cancel any existing notifications
-			LocalNotifications.cancelAll().then(() => {
+			this.localNotifications.cancelAll().then(() => {
 
 				// Schedule the new notifications
-				LocalNotifications.schedule(this.notifications);
+				this.localNotifications.schedule(this.notifications);
 
 				this.notifications = [];
 
@@ -104,7 +104,7 @@ export class HomePage {
 
 	cancelAll(){
 
-		LocalNotifications.cancelAll();
+		this.localNotifications.cancelAll();
 
 		let alert = this.alertCtrl.create({
 			title: 'Notifications cancelled',
